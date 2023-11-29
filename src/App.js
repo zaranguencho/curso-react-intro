@@ -7,17 +7,35 @@ import React from 'react';
 
 const defaultTodos = [
   {text: 'cortar cebolla', completed : false},
-  {text: 'curso de react js', completed : false},
+  {text: 'curso de react js', completed : true},
   {text: 'Llorar con la llorona', completed : false},
   {text: 'sí', completed : false},
 ]
 
-function App() {
+
+
+function App(){
+
+  const[todos, setTodos] = React.useState([defaultTodos])
+
+  const completedTodos = todos.filter(todo =>
+    !!todo.completed
+  ).length
+  const totalTodos = setTodos
+
+  const [searchValue, setSearchValue] = React.useState('')
+
+  console.log('Los usuarios buscan ToDos de ' + searchValue)
+  
+
+
   return (
     <React.Fragment>
 
-    <TodoCounter completed={15} total={25} />
-    <TodoSearch/>
+    <TodoCounter completed={completedTodos} total={totalTodos} />
+    <TodoSearch searchValue={searchValue}
+    setSearchValue={setSearchValue}
+    />
 
     <TodoList>
       {defaultTodos.map(todo =>(
