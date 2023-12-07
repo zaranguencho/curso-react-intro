@@ -4,30 +4,7 @@ import { TodoCounter } from './components/Todocounter/TodoCounter';
 import { TodoSearch } from './components/TodoSearch/TodoSearch'
 import { TodoItem } from './components/TodoItem/TodoItem';
 import { CreateTodoButton } from './components/CreateTodoButton/CreateTodoButton';
-
-
-let parsedItem;
-
-
-function useLocalStorage(itemName, initialValue) {
-  const localStorageItem = localStorage.getItem('itemName')
-  
-  if (!localStorageItem) {
-    localStorage.setItem('itemName', JSON.stringify(initialValue))
-    parsedItem = initialValue
-  } else {
-    parsedItem = JSON.parse(localStorageItem)
-  }
-  
-  const saveItem = (newItem) => {
-    localStorage.setItem('itemName', JSON.stringify(newItem))
-    setItem(newItem)
-  }
-  const [item, setItem] = React.useState(parsedItem)
-  
-  return [item, saveItem]
-}
-
+import { useLocalStorage } from './components/useLocalStorage/useLocalStorage';
 
 
 function App() {
