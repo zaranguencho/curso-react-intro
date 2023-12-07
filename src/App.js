@@ -6,17 +6,25 @@ import { TodoItem } from './components/TodoItem/TodoItem';
 import { CreateTodoButton } from './components/CreateTodoButton/CreateTodoButton';
 
 
-const defaultTodos = [
-  {text: 'cortar cebolla', completed : false},
-  {text: 'curso de react js', completed : true},
-  {text: 'Llorar con la llorona', completed : false},
-  {text: 'sí', completed : false},
-]
-
-
+let parsedTodos;
 
 function App(){
-  const[todos, setTodos] = React.useState(defaultTodos)
+  
+  const localStorageTodos = localStorage.getItem('TODOS_V1')
+
+  if (!localStorageTodos) {
+    localStorage.setItem('Todos_V1', JSON.stringify([]))
+    parsedTodos = []
+  } else{
+    parsedTodos = JSON.parse(localStorageTodos)
+  }
+
+  const saveTodos = (newTodos) =>{
+    localStorage.setItem('TODOS_V1', JSON.stringify(newTodos))
+    setTodos(newTodos)
+  }
+
+  const[todos, setTodos] = React.useState(parsedTodos)
 
   const [searchValue, setSearchValue] = React.useState('')
 
@@ -37,7 +45,7 @@ function App(){
       (todo) => todo.text === text
     )
     newTodos.splice(todoIndex, 1) 
-    setTodos(newTodos)
+    saveTodos(newTodos)
   }
 
       const completeTodo = (text) => {
@@ -46,7 +54,7 @@ function App(){
         (todo) => todo.text === text
       )
       newTodos[todoIndex].completed = true
-      setTodos(newTodos)
+      saveTodos(newTodos)
     }
 
   console.log('Los usuarios buscan ToDos de ' + searchValue)
