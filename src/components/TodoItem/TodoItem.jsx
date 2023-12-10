@@ -1,6 +1,6 @@
 import './TodoItem.css'
-import { FinishIcon } from "./../../Icons/FinishIcon.js";
-import { DeleteIcon } from "./../../Icons/DeleteIcon.js";
+import { FinishIcon } from "../../Icons/FinishIcon.js";
+import { DeleteIcon } from "../../Icons/DeleteIcon.js";
 
 
 

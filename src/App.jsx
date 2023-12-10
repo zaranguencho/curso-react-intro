@@ -9,24 +9,23 @@ import { useLocalStorage } from './components/useLocalStorage/useLocalStorage';
 
 function App() {
 
-
-  const [todos, saveItem] = useLocalStorage('TODOS_V1', [])
+  const {item, saveItem, loading, error} = useLocalStorage('TODOS_V1', [])
 
   const [searchValue, setSearchValue] = React.useState('')
 
-  const completedTodos = todos.filter(todo =>
+  const completedTodos = item.filter(todo =>
     !!todo.completed
   ).length
-  const totalTodos = todos.length
+  const totalTodos = item.length
 
-  const searchedTodos = todos.filter(
+  const searchedTodos = item.filter(
     (todo) => {
       return todo.text.toLowerCase().includes(searchValue.toLowerCase())
     }
   )
 
   const deleteTodo = (text) => {
-    const newTodos = [...todos]
+    const newTodos = [...item]
     const todoIndex = newTodos.findIndex(
       (todo) => todo.text === text
     )
@@ -35,7 +34,7 @@ function App() {
   }
 
   const completeTodo = (text) => {
-    const newItem = [...todos]
+    const newItem = [...item]
     const todoIndex = newItem.findIndex(
       (todo) => todo.text === text
     )
@@ -55,6 +54,10 @@ function App() {
       />
 
       <TodoList>
+    {loading && <TodosLoading/>}
+    {error && <TodosError/>}
+    {(!loading && searchedTodos.length === 1) && <EmptyTodos/>}
+
         {searchedTodos.map(todo => (
           <TodoItem
             key={todo.text}
