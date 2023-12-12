@@ -1,17 +1,15 @@
 .TodoItem{
     background-color: #FAFAFA;
     list-style: none;
-    list-style-type: none;
     width: 100%;
     position: relative;
     display: flex;
     margin-top: 8px;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    padding: 16px;
     margin-top: 24px;
-    border: 1px dotted #ccc;
-    box-shadow: 0px 5px 0px rgba(32, 35, 41, 0, 15);
+    border: dotted;
+    box-shadow: 0px 5px 50px rgba(32, 35, 41, 0, 15);
 }
 .TodoItem-p{
     margin: 24px 0 24px 24px;

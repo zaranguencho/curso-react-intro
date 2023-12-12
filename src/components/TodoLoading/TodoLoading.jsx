@@ -3,7 +3,7 @@ import './TodoLoading.css'
 
 
 function TodoLoading() {
-    return (<div className="loader">
+    return (<center><div className="loader">
     <div className="bar1"></div>
     <div className="bar2"></div>
     <div className="bar3"></div>
@@ -16,7 +16,7 @@ function TodoLoading() {
     <div className="bar10"></div>
     <div className="bar11"></div>
     <div className="bar12"></div>
-</div>
+</div></center>
     )
 }
 
