@@ -5,6 +5,9 @@ import { TodoSearch } from './components/TodoSearch/TodoSearch'
 import { TodoItem } from './components/TodoItem/TodoItem';
 import { CreateTodoButton } from './components/CreateTodoButton/CreateTodoButton';
 import { useLocalStorage } from './components/useLocalStorage/useLocalStorage';
+import { TodoError } from './components/TodoError/TodoError';
+import { TodoLoading } from './components/TodoLoading/TodoLoading';
+import { TodoEmpty } from './components/EmptyTodos/EmptyTodos';
 
 
 function App() {
@@ -54,9 +57,9 @@ function App() {
       />
 
       <TodoList>
-    {loading && <TodosLoading/>}
-    {error && <TodosError/>}
-    {(!loading && searchedTodos.length === 1) && <EmptyTodos/>}
+    {loading && <TodoLoading/>}
+    {error && <TodoError/>}
+    {(!loading && searchedTodos.length === 1) && <TodoEmpty/>}
 
         {searchedTodos.map(todo => (
           <TodoItem
