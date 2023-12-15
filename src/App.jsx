@@ -1,79 +1,41 @@
 import React from 'react';
-import { TodoList } from './components/TodoList/TodoList';
-import { TodoCounter } from './components/Todocounter/TodoCounter';
-import { TodoSearch } from './components/TodoSearch/TodoSearch'
-import { TodoItem } from './components/TodoItem/TodoItem';
+import { todoList } from './components/TodoList/TodoList';
+import { todoCounter } from './components/Todocounter/TodoCounter';
+import { todoSearch } from './components/TodoSearch/TodoSearch'
+import { todoItem } from './components/TodoItem/TodoItem';
 import { CreateTodoButton } from './components/CreateTodoButton/CreateTodoButton';
-import { useLocalStorage } from './components/useLocalStorage/useLocalStorage';
-import { TodoError } from './components/TodoError/TodoError';
-import { TodoLoading } from './components/TodoLoading/TodoLoading';
-import { TodoEmpty } from './components/EmptyTodos/EmptyTodos';
-
+import { todoError } from './components/TodoError/TodoError';
+import { todoLoading } from './components/TodoLoading/TodoLoading';
+import { todoEmpty } from './components/EmptyTodo/EmptyTodo';
+import { TodoContext, TodoProvider} from './components/TodoContext/TodoContext';
 
 function App() {
 
-  const {item, saveItem, loading, error} = useLocalStorage('TODOS_V1', [])
-
-  const [searchValue, setSearchValue] = React.useState('')
-
-  const completedTodos = item.filter(todo =>
-    !!todo.completed
-  ).length
-  const totalTodos = item.length
-
-  const searchedTodos = item.filter(
-    (todo) => {
-      return todo.text.toLowerCase().includes(searchValue.toLowerCase())
-    }
-  )
-
-  const deleteTodo = (text) => {
-    const newTodos = [...item]
-    const todoIndex = newTodos.findIndex(
-      (todo) => todo.text === text
-    )
-    newTodos.splice(todoIndex, 1)
-    saveItem(newTodos)
-  }
-
-  const completeTodo = (text) => {
-    const newItem = [...item]
-    const todoIndex = newItem.findIndex(
-      (todo) => todo.text === text
-    )
-    newItem[todoIndex].completed = true
-    saveItem(newItem)
-  }
-
-  console.log('Los usuarios buscan ToDos de ' + searchValue)
-
-
-
   return (
-    <React.Fragment>
-      <TodoCounter completed={completedTodos} total={totalTodos} />
-      <TodoSearch searchValue={searchValue}
-        setSearchValue={setSearchValue}
-      />
+    <>
+      <itemCounter/>
+      <itemSearch/>
+        <TodoContext.Consumer>{({loading, error, searcheditems, completeitem, deleteitem})=> (
 
-      <TodoList>
-    {loading && <TodoLoading/>}
-    {error && <TodoError/>}
-    {(!loading && searchedTodos.length === 1) && <TodoEmpty/>}
-
-        {searchedTodos.map(todo => (
-          <TodoItem
-            key={todo.text}
-            text={todo.text}
-            completed={todo.completed}
-            onComplete={() => completeTodo(todo.text)}
-            onDelete={() => deleteTodo(todo.text)}
-          />
-        ))}
-      </TodoList>
-
+      <itemList>
+      {loading && <itemLoading/>}
+      {error && <itemError/>}
+      {(!loading && searcheditems.length === 0) && <itemEmpty/>}
+  
+          {searcheditems.map(item => (
+            <itemItem
+              key={item.text}
+              text={item.text}
+              completed={item.completed}
+              onComplete={() => completeitem(item.text)}
+              onDelete={() => deleteitem(item.text)}
+            />
+          ))}
+        </itemList>
+        )}
+    </TodoContext.Consumer>
       <CreateTodoButton />
-    </React.Fragment>
+    </>
   );
 }
 
