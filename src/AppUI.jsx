@@ -9,38 +9,36 @@ import { TodoEmpty } from './components/EmptyTodo/EmptyTodo';
 import { CreateTodoButton } from './components/CreateTodoButton/CreateTodoButton';
 import { TodoContext } from './components/TodoContext/TodoContext';
 import { Modal } from './components/Modal/Modal';
+import { TodoForm } from './components/TodoForm/TodoForm';
 
 function AppUI() {
-    const { loading, error, searchedTodos, completeTodo, deleteTodo, openModal } = React.useContext(TodoContext)
+    const { loading, error, searchedTodos, completeTodo, deleteTodo, openModal, setOpenModal } = React.useContext(TodoContext);
 
     return (
         <>
             <TodoCounter />
             <TodoSearch />
-                <TodoList>
-                    {loading && <TodoLoading />}
-                    {error && <TodoError />}
-                    {!loading && searchedTodos.length === 0 && <TodoEmpty />}
-                    {searchedTodos.map((todo) => (
-                        <TodoItem
-                            key={todo.text}
-                            text={todo.text}
-                            completed={todo.completed}
-                            onComplete={() => completeTodo(todo.text)}
-                            onDelete={() => deleteTodo(todo.text)}
-                        />
-                    ))}
-                </TodoList>
-            <CreateTodoButton />
+            <TodoList>
+                {loading && <TodoLoading />}
+                {error && <TodoError />}
+                {!loading && searchedTodos.length === 0 && <TodoEmpty />}
+                {searchedTodos.map((todo) => (
+                    <TodoItem
+                        key={todo.text}
+                        text={todo.text}
+                        completed={todo.completed}
+                        onComplete={() => completeTodo(todo.text)}
+                        onDelete={() => deleteTodo(todo.text)}
+                    />
+                ))}
+            </TodoList>
+            <CreateTodoButton setOpenModal={setOpenModal} />
 
             {openModal && (
-            <Modal>
-                funcion
-            </Modal>
+                <Modal>
+                    <TodoForm />
+                </Modal>
             )}
-
-
-
         </>
     );
 }

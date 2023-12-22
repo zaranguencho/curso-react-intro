@@ -1,0 +1,50 @@
+/* TodoForm.css */
+
+form {
+    width: 60%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    display: block;
+    margin-bottom: 12px;
+    color: black;
+}
+
+textarea {
+    width: 100%;
+    height: 150px;
+    padding: 12px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    resize: vertical;
+}
+
+.TodoForm-Buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.TodoForm-cancel,
+.TodoForm-create {
+    padding: 12px 20px;
+    cursor: pointer;
+    background-color: #ddd;
+    border: 1px solid #999;
+    border-radius: 4px;
+}
+
+.TodoForm-create {
+    background-color: #61dafb;
+    color: #000000;
+}
+
+.TodoForm-cancel {
+    background-color: rgb(107, 23, 23);
+    color: white;
+}

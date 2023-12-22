@@ -15,6 +15,16 @@ function TodoProvider({ children }) {
         return item.text.toLowerCase().includes(searchValue.toLowerCase());
     });
 
+    const addTodo = (text) =>{
+        const newTodos = [...item]
+        newTodos.push({
+            text,
+            completed:false,
+
+        })
+        saveItem(newTodos)
+    }
+
     const deleteTodo = (text) => {
         const newItem = [...item];
         const itemIndex = newItem.findIndex((item) => item.text === text);
@@ -43,6 +53,7 @@ function TodoProvider({ children }) {
                 deleteTodo,
                 openModal,
                 setOpenModal,
+                addTodo,
             }}
         >
             {children}
